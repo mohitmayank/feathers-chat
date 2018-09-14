@@ -4,6 +4,8 @@ const { hashPassword, protect } = require('@feathersjs/authentication-local').ho
 
 const gravatar = require('../../hooks/gravatar');
 
+const noContent = require('../../hooks/no-content');
+
 module.exports = {
   before: {
     all: [],
@@ -16,7 +18,7 @@ module.exports = {
   },
 
   after: {
-    all: [ 
+    all: [
       // Make sure the password field is never sent to the client
       // Always must be the last hook
       protect('password')
@@ -25,7 +27,9 @@ module.exports = {
     get: [],
     create: [],
     update: [],
-    patch: [],
+    patch: [
+      noContent(),
+    ],
     remove: []
   },
 
